@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+    "phasicj/analysis/engine",
+    "phasicj/analysis/server",
+]
