@@ -1,0 +1,17 @@
+load("@io_bazel_rules_rust//rust:rust.bzl", "rust_binary")
+
+alias(
+    name = "shell",
+    actual = ":phasicj_analysis_shell",
+    visibility = ["//visibility:public"],
+)
+
+rust_binary(
+    name = "phasicj_analysis_shell",
+    srcs = ["src/main.rs"],
+    deps = [
+        "//phasicj/analysis/engine",
+    ],
+    visibility = ["//visibility:public"],
+    edition = "2018",
+)

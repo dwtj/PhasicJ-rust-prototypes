@@ -2,6 +2,7 @@
 
 members = [
     "phasicj/analysis/engine",
+    "phasicj/analysis/shell",
     "phasicj/analysis/language",
     "phasicj/analysis/server",
 ]

@@ -1,0 +1,9 @@
+[package]
+name = "phasicj_analysis_shell"
+version = "0.1.0"
+authors = ["David Johnston <dwtj@dwtj.me>"]
+edition = "2018"
+
+[dependencies.phasicj_analysis_server]
+version = "0.1.0"
+path = "../server"
