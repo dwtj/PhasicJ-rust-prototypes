@@ -5,4 +5,5 @@ members = [
     "phasicj/analysis/shell",
     "phasicj/analysis/language",
     "phasicj/analysis/server",
+    "third_party/cargo",
 ]
