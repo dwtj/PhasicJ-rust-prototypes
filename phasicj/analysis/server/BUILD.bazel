@@ -1,10 +1,17 @@
 load("@io_bazel_rules_rust//rust:rust.bzl", "rust_binary")
 
-rust_binary(
+alias(
     name = "server",
+    actual = "phasicj_analysis_server",
+    visibility = ["//visibility:public"],
+)
+
+rust_binary(
+    name = "phasicj_analysis_server",
     srcs = ["src/main.rs"],
     deps = [
-        "//phasicj/analysis/engine:phasicj_analysis_engine",
+        "//phasicj/analysis/engine",
     ],
+    visibility = ["//visibility:public"],
     edition = "2018",
 )

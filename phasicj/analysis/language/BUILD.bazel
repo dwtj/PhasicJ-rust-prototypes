@@ -1,17 +1,21 @@
 load("@io_bazel_rules_rust//rust:rust.bzl", "rust_library")
 
 alias(
-    name = "engine",
-    actual = ":phasicj_analysis_engine",
+    name = "language",
+    actual = ":phasicj_analysis_language",
     visibility = ["//visibility:public"],
 )
 
 rust_library(
-    name = "phasicj_analysis_engine",
+    name = "phasicj_analysis_language",
     srcs = ["src/lib.rs"],
+    data = [
+        "src/pjal.pest"
+    ],
     visibility = ["//visibility:public"],
     edition = "2018",
     deps = [
-        "//phasicj/analysis/language"
+        "//third_party/cargo:pest",
+        "//third_party/cargo:pest_derive",
     ],
 )

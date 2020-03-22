@@ -1,0 +1,27 @@
+lower_case_alphabet = _{ 'a'..'z' }
+upper_case_alphabet = _{ 'A'..'Z' }
+mixed_case_alphabet = _{ 'A'..'Z' | 'a'..'z' }
+
+atom = { lower_case_alphabet ~ (mixed_case_alphabet*) }
+variable = { upper_case_alphabet ~ (mixed_case_alphabet*) }
+
+relation = { lower_case_alphabet ~ (mixed_case_alphabet*) }
+
+argument = { (atom | variable) }
+argument_list = _{ (argument ~ ("," ~ argument)*) }  // TODO: Support 0-arity terms.
+
+term = _{ relation ~ "(" ~ argument_list ~ ")" }
+term_list = _{ term ~ ("," ~ term)* }
+
+query = { term_list ~ "?" }
+rule = { term ~ "<-" ~ term_list}
+axiom = { term_list ~ "." }
+
+statement = { query
+            | rule
+            | axiom
+}
+
+program = { (rule | axiom)* }
+
+WHITESPACE = _{" "}

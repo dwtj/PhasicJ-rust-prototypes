@@ -36,6 +36,18 @@ http_archive(
 load("@io_bazel_rules_rust//:workspace.bzl", "bazel_version")
 bazel_version(name = "bazel_version")
 
-load("@io_bazel_rules_rust//rust:repositories.bzl", "rust_repositories")
-rust_repositories()
+# Use a more recent stable Rust release.
+RUST_VERSION = "1.42.0"
+RUSTFMT_VERSION = "1.4.11"
+load("@io_bazel_rules_rust//rust:repositories.bzl", "rust_repository_set")
+rust_repository_set(
+    name = "rust_linux_x86_64",
+    exec_triple = "x86_64-unknown-linux-gnu",
+    extra_target_triples = [],
+    version = RUST_VERSION,
+    rustfmt_version = RUSTFMT_VERSION,
+)
 
+# Fetch remote cargo-raze crates.
+load("//third_party/cargo:crates.bzl", "raze_fetch_remote_crates")
+raze_fetch_remote_crates() 

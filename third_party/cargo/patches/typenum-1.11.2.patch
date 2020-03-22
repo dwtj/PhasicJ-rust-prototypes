@@ -1,0 +1,15 @@
+diff -ru a/src/lib.rs b/src/lib.rs
+--- a/src/lib.rs	2020-03-20 22:39:23.600533075 -0700
++++ b/src/lib.rs	2020-03-20 22:58:53.063302976 -0700
+@@ -62,8 +62,9 @@
+ 
+ use core::cmp::Ordering;
+ 
+-include!(env!("TYPENUM_BUILD_OP"));
+-include!(env!("TYPENUM_BUILD_CONSTS"));
++// Note(dwtj): Patched to work around this GitHub issue: google/cargo-raze#116.
++include!(concat!(env!("OUT_DIR"), "/consts.rs"));
++include!(concat!(env!("OUT_DIR"), "/op.rs"));
+ 
+ pub mod bit;
+ pub mod int;

@@ -1,0 +1,42 @@
+[package]
+name = "use_cargo_crates_from_bazel"
+version = "0.1.0"
+authors = ["David Johnston <dwtj@dwtj.me>"]
+edition = "2018"
+
+[dependencies]
+pest = "2.1.3"
+pest_derive = "2.1.0"
+
+[lib]
+path = "dummy_lib.rs"
+
+[raze]
+workspace_path = "//third_party/cargo"
+target = "x86_64-unknown-linux-gnu"
+output_buildfile_suffix = "BUILD.bazel"
+genmode = "Remote"
+
+[raze.crates.typenum.'1.11.2']
+gen_buildrs = true
+
+# Note(dwtj): Patched to work around this GitHub issue: google/cargo-raze#116.
+# Note(dwtj): Patching support was added to cargo-raze in google/cargo-raze#121
+patches = ["//third_party/cargo/patches:typenum-1.11.2.patch"]
+patch_args = ["-p1"]
+
+[raze.crates.syn.'1.0.17']
+gen_buildrs = true
+additional_flags = [
+    "--cfg=syn_can_use_thread_id",
+    "--cfg=syn_can_call_macro_by_path",
+    "--cfg=syn_disable_nightly_tests",
+]
+
+[raze.crates.proc-macro2.'1.0.9']
+gen_buildrs = true
+additional_flags = [
+    "--cfg=u128",
+    "--cfg=use_proc_macro",
+    "--cfg=wrap_proc_macro",
+]
