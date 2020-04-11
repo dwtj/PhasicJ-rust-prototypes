@@ -13,13 +13,13 @@ argument_list = _{ (argument ~ ("," ~ argument)*) }  // TODO: Support 0-arity te
 term = _{ relation ~ "(" ~ argument_list ~ ")" }
 term_list = _{ term ~ ("," ~ term)* }
 
-query = { term_list ~ "?" }
-rule = { term ~ "<-" ~ term_list}
 axiom = { term_list ~ "." }
+rule = { term ~ "<-" ~ term_list}
+query = { term_list ~ "?" }
 
-statement = { query
+statement = { axiom
             | rule
-            | axiom
+            | query
 }
 
 program = { (rule | axiom)* }
