@@ -1,0 +1,18 @@
+load(
+  "@rules_tla//tla:tla.bzl",
+  "tla_module",
+  "tlc_test"
+)
+
+tla_module(
+    name = "spec",
+    src = "Engine.tla",
+)
+
+#tlc_test(
+#    name = "hourclock_tlc",
+#    cfg = "hourclock.cfg",
+#    module = ":hourclock",
+#    workers = 4,
+#    deadlock = True,
+#)
