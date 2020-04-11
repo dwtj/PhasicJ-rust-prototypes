@@ -51,3 +51,18 @@ rust_repository_set(
 # Fetch remote cargo-raze crates.
 load("//third_party/cargo:crates.bzl", "raze_fetch_remote_crates")
 raze_fetch_remote_crates() 
+
+# CONFIGURE RULES_TLA #########################################################
+
+RULES_TLA_COMMIT = "b8b1f7fa3d77894e5b16336b41faea382d05208f"
+RULES_TLA_SHA256 = "cb4703ae0165ac583b52c3038922e5ed1c8acdcd5651366b412313566dcd3197"
+
+http_archive(
+  name = "rules_tla",
+  url = "https://github.com/dwtj/rules_tla/archive/{}.tar.gz".format(RULES_TLA_COMMIT),
+  sha256 = RULES_TLA_SHA256,
+  strip_prefix = "rules_tla-{}".format(RULES_TLA_COMMIT)
+)
+
+load("@rules_tla//tla:tla.bzl", "tla_repositories")
+tla_repositories()
