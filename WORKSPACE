@@ -51,3 +51,22 @@ rust_repository_set(
 # Fetch remote cargo-raze crates.
 load("//third_party/cargo:crates.bzl", "raze_fetch_remote_crates")
 raze_fetch_remote_crates() 
+
+# CONFIGURE RULES_GRAALVM #####################################################
+
+RULES_GRAALVM_COMMIT = "ca52548f8c6a29b0ff67d18e659560595505b4d7"
+RULES_GRAALVM_SHA256 = "22fa03e5cf07ee10ae4e8455b4a38c090c932a647e7d1f96a5090469d3b0362b"
+
+http_archive(
+    name = "rules_graalvm",
+    sha256 = RULES_GRAALVM_SHA256,
+    strip_prefix = "rules_graalvm-{}".format(RULES_GRAALVM_COMMIT),
+    url = "https://github.com/dwtj/rules_graalvm/archive/{}.zip".format(RULES_GRAALVM_COMMIT),
+)
+
+load("@rules_graalvm//graalvm:repositories.bzl",
+     "rules_graalvm_dependencies",
+     "rules_graalvm_toolchains")
+
+rules_graalvm_dependencies()
+rules_graalvm_toolchains()
