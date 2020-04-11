@@ -8,7 +8,10 @@ alias(
 
 rust_library(
     name = "phasicj_analysis_engine",
-    srcs = ["src/lib.rs"],
+    srcs = [
+        "src/lib.rs",
+        "src/model.rs",
+    ],
     visibility = ["//visibility:public"],
     edition = "2018",
     deps = [

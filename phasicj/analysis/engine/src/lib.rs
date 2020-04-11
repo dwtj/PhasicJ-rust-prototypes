@@ -12,3 +12,20 @@ use phasicj_analysis_language::parse;
 pub fn hello() {
     parse();
 }
+
+pub mod model;
+
+pub struct Engine {
+    id: String,
+
+}
+
+pub fn new(id: &str) -> Engine {
+    Engine {
+        id: String::from(id)
+    }
+}
+
+pub fn mutate(e: &mut Engine) {
+    e.id.push('h')
+}
