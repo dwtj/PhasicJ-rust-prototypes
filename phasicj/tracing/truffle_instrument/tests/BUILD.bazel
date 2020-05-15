@@ -1,0 +1,12 @@
+load("@rules_graalvm//graalvm:defs.bzl", "graalvm_java_test")
+
+graalvm_java_test(
+    name = "smoke_test",
+    main_class = "simple_java_binary.Main",
+    java_deps = [
+        "//phasicj/test_artifacts/java/simple_java_binary",
+    ],
+    truffle_instruments = [
+        "//phasicj/tracing/truffle_instrument",
+    ],
+)

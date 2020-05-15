@@ -1,0 +1,22 @@
+load("@rules_java//java:defs.bzl", "java_library")
+load("@rules_graalvm//graalvm:defs.bzl", "graalvm_truffle_instrument")
+
+java_library(
+    name = "TracingTruffleInstrument",
+    srcs = [":TracingTruffleInstrument.java"],
+    deps = [
+        "@maven//:org_graalvm_sdk_graal_sdk",
+        "@maven//:org_graalvm_truffle_truffle_api",
+    ],
+    visibility = ["//visibility:__subpackages__"],
+)
+
+# TODO(dwtj): Investigate Truffle API compatibility across GraalVM versions.
+#  E.g. If I compile a Truffle Instrument against Truffle API v20.0.0, will it
+#  work in GraalVM v20.1.0? What about vice-versa? Ought I to build different
+#  Truffle instrument artifacts for different GraalVM versions?
+graalvm_truffle_instrument(
+    name = "truffle_instrument",
+    java_library = ":TracingTruffleInstrument",
+    visibility = ["//visibility:public"],
+)

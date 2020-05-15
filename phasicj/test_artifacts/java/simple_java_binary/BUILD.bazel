@@ -1,0 +1,11 @@
+package(
+    default_visibility = ["//visibility:public"],
+)
+
+load("@rules_java//java:defs.bzl", "java_binary")
+
+java_binary(
+    name = "simple_java_binary",
+    srcs = [":Main.java"],
+    main_class = "simple_java_binary.Main"
+)
