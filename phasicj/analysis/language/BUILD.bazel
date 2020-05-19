@@ -1,4 +1,7 @@
-load("@io_bazel_rules_rust//rust:rust.bzl", "rust_library")
+load("@io_bazel_rules_rust//rust:rust.bzl",
+     "rust_library",
+     "rust_test",
+)
 
 alias(
     name = "language",
@@ -17,5 +20,27 @@ rust_library(
     deps = [
         "//third_party/cargo:pest",
         "//third_party/cargo:pest_derive",
+    ],
+)
+
+rust_test(
+    name = "phasicj_analysis_language_unit_tests",
+    srcs = ["src/lib.rs"],
+    data = [
+        "src/pjal.pest"
+    ],
+    edition = "2018",
+    deps = [
+        "//third_party/cargo:pest",
+        "//third_party/cargo:pest_derive",
+    ],
+)
+
+rust_test(
+    name = "parse_smoke_test",
+    srcs = ["tests/parse_smoke_test.rs"],
+    edition = "2018",
+    deps = [
+        ":phasicj_analysis_language",
     ],
 )

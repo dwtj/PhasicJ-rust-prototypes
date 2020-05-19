@@ -10,5 +10,5 @@ use phasicj_analysis_language::parse;
 // - Storing events.
 // - Reporting conflicts: when analyses report both p & !p.
 pub fn hello() {
-    parse();
+    assert!(parse("f(X).").is_ok());
 }

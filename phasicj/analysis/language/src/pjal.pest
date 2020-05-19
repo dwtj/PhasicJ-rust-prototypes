@@ -2,19 +2,22 @@ lower_case_alphabet = _{ 'a'..'z' }
 upper_case_alphabet = _{ 'A'..'Z' }
 mixed_case_alphabet = _{ 'A'..'Z' | 'a'..'z' }
 
-atom = { lower_case_alphabet ~ (mixed_case_alphabet*) }
-variable = { upper_case_alphabet ~ (mixed_case_alphabet*) }
+atom = @{ lower_case_alphabet ~ (mixed_case_alphabet*) }
+variable = @{ upper_case_alphabet ~ (mixed_case_alphabet*) }
 
-relation = { lower_case_alphabet ~ (mixed_case_alphabet*) }
+relation = @{ lower_case_alphabet ~ (mixed_case_alphabet*) }
 
-argument = { (atom | variable) }
-argument_list = _{ (argument ~ ("," ~ argument)*) }  // TODO: Support 0-arity terms.
+argument = _{ (atom | variable) }
+argument_list = _{ (argument ~ ("," ~ argument)*) }  // TODO(dwtj): Is there any reason to support 0-arity terms?
 
-term = _{ relation ~ "(" ~ argument_list ~ ")" }
+term = { relation ~ "(" ~ argument_list ~ ")" }
 term_list = _{ term ~ ("," ~ term)* }
 
+rule_head = ${ term_list }
+rule_body = ${ term_list }
+
 axiom = { term_list ~ "." }
-rule = { term ~ "<-" ~ term_list}
+rule = { rule_head ~ "<-" ~ rule_body ~ "."}
 query = { term_list ~ "?" }
 
 statement = { axiom
@@ -22,6 +25,6 @@ statement = { axiom
             | query
 }
 
-program = { (rule | axiom)* }
+program = { (rule | axiom)+ }
 
 WHITESPACE = _{" "}
