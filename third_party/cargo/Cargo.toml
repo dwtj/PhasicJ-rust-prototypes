@@ -11,6 +11,9 @@ pest_derive = "2.1.0"
 [lib]
 path = "_cargo_raze_dummy_lib.rs"
 
+# Note(dwtj): Cargo warns that this is an "unused manifest key". Cargo doesn't
+#  recognize this key, but that's ok. This metadata isn't here to configure
+#  Cargo itself. It is here to configure `cargo-raze`.
 [raze]
 workspace_path = "//third_party/cargo"
 target = "x86_64-unknown-linux-gnu"
